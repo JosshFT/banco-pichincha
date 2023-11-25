@@ -1,0 +1,117 @@
+<div
+  class="display-flex flex-direction-column no-background height-80 flex-justify-content-center flex-align-items-center">
+  <div class="background-white width-50 p-40px">
+    <div class="display-flex flex-align-items-center flex-justify-content-center">
+      <h1 *ngIf="isEditMode$ | async; else addProduct">Formulario de Edición</h1>
+      <ng-template #addProduct>
+        <h2>Formulario de Registro</h2>
+      </ng-template>
+    </div>
+
+    <hr />
+
+    <form [formGroup]="productForm" (ngSubmit)="submitForm()">
+      <div class="display-flex flex-direction-row flex-justify-content-center">
+        <div class="display-flex flex-direction-column m-right-sm width-45">
+          <div class="display-flex flex-direction-column m-top-xl">
+            <label for="id">ID:</label>
+            <input type="text" id="id" formControlName="id" class="bp-input-border"
+              [class.error-border]="productForm.get('id')?.invalid && productForm.get('id')?.touched">
+
+            <ng-container *ngIf="productForm.get('id')?.touched">
+              <small *ngIf="productForm.get('id')?.hasError('required')" class="color-red">
+                ID es requerido.
+              </small>
+              <small *ngIf="productForm.get('id')?.hasError('productIdExists')" class="color-red">
+                {{productForm.get('id')?.getError('productIdExists').message}}
+              </small>
+              <small *ngIf="productForm.get('id')?.hasError('minlength')" class="color-red">
+                ID debe tener un minimo de {{productForm.get('id')?.getError('minlength').requiredLength}} letras
+              </small>
+              <small *ngIf="productForm.get('id')?.hasError('maxlength')" class="color-red">
+                ID debe tener un maximo de {{productForm.get('id')?.getError('maxlength').requiredLength}} letras
+              </small>
+            </ng-container>
+          </div>
+          <div class="display-flex flex-direction-column m-top-xl">
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" formControlName="descripcion" class="bp-input-border"
+              [class.error-border]="productForm.get('descripcion')?.invalid && productForm.get('descripcion')?.touched"
+              ></textarea>
+            <ng-container *ngIf="productForm.get('descripcion')?.touched">
+              <div *ngIf="productForm.get('descripcion')?.hasError('required')">
+                Descripcion es requerido.
+              </div>
+            </ng-container>
+          </div>
+          <div class="display-flex flex-direction-column m-top-xl">
+            <label for="fechaLiberacion">Fecha Liberación:</label>
+            <input type="date" id="fechaLiberacion" formControlName="fechaLiberacion" class="bp-input-border"
+              [class.error-border]="productForm.get('fechaLiberacion')?.invalid && productForm.get('fechaLiberacion')?.touched">
+            <ng-container *ngIf="productForm.get('fechaLiberacion')?.touched">
+              <small *ngIf="productForm.get('fechaLiberacion')?.hasError('required')" class="color-red">
+                Fecha Liberación es requerido.
+              </small>
+              <small *ngIf="productForm.get('fechaLiberacion')?.hasError('fechaLiberacionInvalid')" class="color-red">
+                Fecha Liberacion debe ser igual o mayor a la fecha actual.
+              </small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="display-flex flex-direction-column m-left-sm width-45">
+          <div class="display-flex flex-direction-column m-top-xl">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" formControlName="nombre" class="bp-input-border"
+              [class.error-border]="productForm.get('nombre')?.invalid && productForm.get('nombre')?.touched">
+            <ng-container *ngIf="productForm.get('nombre')?.touched">
+
+              <small *ngIf="productForm.get('nombre')?.hasError('required')" class="color-red">
+                Nombre es requerido.
+              </small>
+              <small *ngIf="productForm.get('nombre')?.hasError('minlength')" class="color-red">
+                Nombre debe tener un minimo de {{productForm.get('nombre')?.getError('minlength').requiredLength}}
+                letras
+              </small>
+              <small *ngIf="productForm.get('nombre')?.hasError('maxlength')" class="color-red">
+                Nombre debe tener un maximo de {{productForm.get('nombre')?.getError('maxlength').requiredLength}}
+                letras
+              </small>
+            </ng-container>
+          </div>
+
+          <div class="display-flex flex-direction-column m-top-xl">
+            <label for="logo">Logo:</label>
+            <input type="text" id="logo" formControlName="logo" class="bp-input-border"
+                          [class.error-border]="productForm.get('logo')?.invalid && productForm.get('logo')?.touched">
+            <ng-container *ngIf="productForm.get('logo')?.touched">
+              <small *ngIf="productForm.get('logo')?.hasError('required')" class="color-red">
+                Logo es requerido.
+              </small>
+            </ng-container>
+          </div>
+
+          <div class="display-flex flex-direction-column m-top-xl">
+            <label for="fechaRevision">Fecha Revisión:</label>
+            <input type="date" id="fechaRevision" formControlName="fechaRevision" class="bp-input-border"
+                          [class.error-border]="productForm.get('fechaRevision')?.invalid && productForm.get('fechaRevision')?.touched">
+            <ng-container *ngIf="productForm.get('fechaRevision')?.touched">
+              <small *ngIf="productForm.get('fechaRevision')?.hasError('required')" class="color-red">
+                Fecha Revisión es requerido.
+              </small>
+              <small *ngIf="productForm.get('fechaRevision')?.hasError('fechaRevisionInvalid')" class="color-red">
+                Fecha Revision debe ser exactamente un año después de la fecha de liberación.
+              </small>
+            </ng-container>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="display-flex flex-direction-row flex-justify-content-center m-top-xxl">
+        <button class="btn secondary" type="button" (click)="resetForm()">Reiniciar</button>
+        <button class="btn primary m-left-xxl" type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>

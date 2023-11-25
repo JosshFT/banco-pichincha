@@ -1,0 +1,41 @@
+/* Your component's styles (styles.css or component-specific styles) */
+
+/* Styles for the dropdown container */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Styles for the dropdown icon */
+.dropdown-icon {
+  cursor: pointer;
+}
+
+/* Styles for the dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  z-index: 1;
+}
+
+/* Show the dropdown menu when it's open */
+.dropdown-menu.active {
+  display: block;
+}
+
+/* Styles for dropdown options */
+.dropdown-option {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* Highlight the selected option */
+.dropdown-option:hover {
+  background-color: #f0f0f0;
+}
+

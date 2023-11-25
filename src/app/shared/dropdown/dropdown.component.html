@@ -1,0 +1,16 @@
+<div class="dropdown-container">
+  <img
+    width="15"
+    src="assets/menu.svg"
+    alt="Dropdown Icon"
+    (click)="toggleDropdown()"
+    class="dropdown-icon"
+  />
+
+  <div *ngIf="isDropdownOpen" [class.active]="isDropdownOpen" class="dropdown-menu">
+    <ng-container *ngFor="let option of options">
+      <div class="dropdown-option" (click)="selectOption(option)">{{option}}</div>
+    </ng-container>
+  </div>
+</div>
+

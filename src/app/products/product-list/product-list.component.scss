@@ -1,0 +1,36 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+
+  th, td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #eee;
+  }
+
+  tbody {
+    // background-color: white;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.table-area {
+  background-color: white
+}
+
+/* Additional styling for the select dropdown */
+select {
+  padding: 8px;
+}
+

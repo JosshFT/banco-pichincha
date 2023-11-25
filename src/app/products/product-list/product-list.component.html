@@ -1,0 +1,53 @@
+<div class="display-flex flex-direction-column p-5 no-background height-100vh">
+  <div class="display-flex flex-justify-content-space-between">
+    <div>
+      <form [formGroup]="searchForm">
+        <input class="bp-input-border" type="text" placeholder="Buscar..." formControlName="searchTerm" />
+      </form>
+    </div>
+    <div>
+      <button class="btn primary" (click)="goToAddProduct()">Agregar</button>
+    </div>
+  </div>
+
+  <div class="display-flex flex-direction-column table-area m-top-md p-20px">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>Descripción</th>
+          <th>Fecha de liberación</th>
+          <th>Fecha de reestructuración</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="productsService.paginator$ | async as paginator">
+          <tr *ngFor="let product of paginator.currentPageProducts()">
+            <td><img [src]="product.logo" width="50" /></td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.date_release | date }}</td>
+            <td>{{ product.date_revision | date }}</td>
+            <td><app-dropdown [options]="menuOptions"
+                (optionSelected)="onOptionSelected($event, product)"></app-dropdown>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div class="display-flex flex-direction-row flex-justify-content-space-between">
+      <div *ngIf="productsService.paginator$ | async as paginator">{{paginator.totalElements}} Resultados</div>
+      <select class="bp-input-border bp-select" name="show" id="show-select" (change)="changeShowedItemsPerPage($event)">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="productsService.selectedProduct$ | async as product">
+<app-confirmation-modal *ngIf="showDeleteConfirmationModal" (confirm)="onConfirmDelete()"
+  (cancel)="onCancelDelete()" [title]="'¿Estas seguro de eliminar el producto ' + product.name"></app-confirmation-modal></ng-container>
